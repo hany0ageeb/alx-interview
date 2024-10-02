@@ -1,4 +1,10 @@
+"""
+pla pla pla
+"""
 def pascal_triangle(n):
+    """
+    Pla pla pla
+    """
     if (n <= 0):
         return []
     elif (n == 1):
