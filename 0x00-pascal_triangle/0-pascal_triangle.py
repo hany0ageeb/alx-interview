@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 pla pla pla
 """
@@ -22,13 +23,3 @@ def pascal_triangle(n):
                     rw.append(result[row - 1][col - 1] + result[row - 1][col])
             result.append(rw)
         return result
-if __name__ == '__main__':
-    print(pascal_triangle(0))
-    print(pascal_triangle(1))
-    print(pascal_triangle(2))
-    print(pascal_triangle(3))
-    print(pascal_triangle(4))
-    print(pascal_triangle(5))
-    print(pascal_triangle(6))
-    print(pascal_triangle(7))
-    print(pascal_triangle(8))
