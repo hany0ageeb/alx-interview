@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """
-pla pla pla
+module documentation
 """
 def pascal_triangle(n):
     """
-    Pla pla pla
+    function to return pascal's triangle
     """
     if (n <= 0):
         return []
