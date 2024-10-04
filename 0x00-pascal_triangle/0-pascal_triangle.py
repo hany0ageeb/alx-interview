@@ -2,6 +2,8 @@
 """
 module documentation
 """
+
+
 def pascal_triangle(n):
     """
     function to return pascal's triangle
@@ -17,7 +19,7 @@ def pascal_triangle(n):
         for row in range(2, n):
             rw = []
             for col in range(0, row + 1):
-                if(col == 0 or col == row):
+                if (col == 0 or col == row):
                     rw.append(1)
                 else:
                     rw.append(result[row - 1][col - 1] + result[row - 1][col])
