@@ -25,6 +25,6 @@ def canUnlockAll(boxes):
         return True
     if (len(boxes[0]) == 0):
         return False
-    visited = set([0])
+    visited = {0}
     visit(boxes[0])
     return visited == set(range(0, n))
