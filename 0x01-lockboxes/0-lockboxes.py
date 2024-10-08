@@ -14,12 +14,12 @@ def canUnlockAll(boxes):
     Return:
         True if all boxes can be opened, else return False
     """
+    n = len(boxes)
     def visit(box):
         for key in box:
-            if (key not in visited):
+            if (key not in visited and key < n):
                 visited.add(key)
                 visit(boxes[key])
-    n = len(boxes)
     if (n == 0 or n == 1):
         return True
     if (len(boxes[0]) == 0):
