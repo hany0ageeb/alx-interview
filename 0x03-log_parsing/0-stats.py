@@ -25,7 +25,7 @@ def get_file_size_status_code(line: str) -> Union[Tuple[str, int], None]:
     PATTERN = r'^(\d{1,4}\.){3}\d{1,4} - '\
         r'\[\d{4}-\d{2}-\d{2} \d{1,2}:\d{1,2}:\d{1,2}(\.\d+)?\]'\
         r' "GET \/projects\/260 HTTP\/1\.1" '\
-        r'(200|301|400|401|403|404|405){1} (\d+)$'
+        r'(200|301|400|401|403|404|405|500){1} (\d+)$'
     m = re.fullmatch(PATTERN, line)
     if m:
         return (m.groups()[2], int(m.groups()[3]))
