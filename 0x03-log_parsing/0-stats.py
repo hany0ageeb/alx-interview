@@ -64,6 +64,7 @@ def main() -> None:
                     total_file_size += status_code_file_size[1]
             except KeyboardInterrupt:
                 display_result(total_file_size, result, status_codes)
+                sys.stdout.flush()
                 return
         display_result(total_file_size, result, status_codes)
 
