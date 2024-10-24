@@ -22,6 +22,9 @@ from typing import Union, Tuple, Dict
 
 
 def get_file_size_status_code(line: str, prog) -> Union[Tuple[str, int], None]:
+    """
+    valdate lne return state code, fle sze or None
+    """
     m = re.fullmatch(prog, line)
     if m:
         result = (m.groups()[2], int(m.groups()[3]))
@@ -33,6 +36,9 @@ def display_result(
         file_size: int,
         result: Dict[str, int],
         status_codes: Tuple[str, ...]) -> None:
+    """
+    display result so far
+    """
     print('File size: {}'.format(file_size))
     for s_code in status_codes:
         sum: int = result[s_code]
