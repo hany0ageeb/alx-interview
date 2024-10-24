@@ -21,26 +21,24 @@ import re
 from typing import Union, Tuple, Dict
 
 
-def get_file_size_status_code(line: str) -> Union[Tuple[str, int], None]:
-    PATTERN = r'^(\d{1,4}\.){3}\d{1,4} - '\
-        r'\[\d{4}-\d{2}-\d{2} \d{1,2}:\d{1,2}:\d{1,2}(\.\d+)?\]'\
-        r' "GET \/projects\/260 HTTP\/1\.1" '\
-        r'(200|301|400|401|403|404|405|500){1} (\d+)$'
-    m = re.fullmatch(PATTERN, line)
+def get_file_size_status_code(line: str, prog) -> Union[Tuple[str, int], None]:
+    m = re.fullmatch(prog, line)
     if m:
-        return (m.groups()[2], int(m.groups()[3]))
+        result = (m.groups()[2], int(m.groups()[3]))
+        return result
     return None
 
 
 def display_result(
         file_size: int,
-        result: Dict,
-        status_codes: Tuple[str]) -> None:
+        result: Dict[str, int],
+        status_codes: Tuple[str, ...]) -> None:
     print('File size: {}'.format(file_size))
     for s_code in status_codes:
-        sum = result.get(s_code)
+        sum: int = result[s_code]
         if sum > 0:
             print('{}: {}'.format(s_code, sum))
+    sys.stdout.flush()
 
 
 def main() -> None:
@@ -50,21 +48,24 @@ def main() -> None:
     total_file_size = 0
     status_codes = ('200', '301', '400', '401', '403', '404', '405', '500')
     result = {code: 0 for code in status_codes}
+    PATTERN = r'^(\d{1,4}\.){3}\d{1,4} - '\
+        r'\[\d{4}-\d{2}-\d{2} \d{1,2}:\d{1,2}:\d{1,2}(\.\d+)?\]'\
+        r' "GET \/projects\/260 HTTP\/1\.1" '\
+        r'(\w*) (\d+)$'
+    prog = re.compile(PATTERN)
     while True:
         for i in range(10):
             try:
-                line = sys.stdin.readline()
+                line = sys.stdin.readline().lstrip().rstrip()
                 if not line:
                     return
-                line = line.rstrip().lstrip()
-                status_code_file_size = get_file_size_status_code(line)
-                if status_code_file_size and \
-                   status_code_file_size[0] in result:
-                    result[status_code_file_size[0]] += 1
+                status_code_file_size = get_file_size_status_code(line, prog)
+                if status_code_file_size:
+                    if status_code_file_size[0] in result:
+                        result[status_code_file_size[0]] += 1
                     total_file_size += status_code_file_size[1]
             except KeyboardInterrupt:
                 display_result(total_file_size, result, status_codes)
-                sys.stdout.flush()
                 return
         display_result(total_file_size, result, status_codes)
 
