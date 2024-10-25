@@ -64,6 +64,8 @@ def main() -> None:
             try:
                 line = sys.stdin.readline().lstrip().rstrip()
                 if not line:
+                    if i > 0:
+                        display_result(total_file_size, result, status_codes)
                     return
                 status_code_file_size = get_file_size_status_code(line, prog)
                 if status_code_file_size:
