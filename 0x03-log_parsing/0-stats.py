@@ -25,7 +25,7 @@ def get_file_size_status_code(line: str, prog) -> Union[Tuple[str, int], None]:
     """
     valdate lne return state code, fle sze or None
     """
-    m = re.fullmatch(prog, line)
+    m = re.search(prog, line)
     if m:
         result = (m.groups()[2], int(m.groups()[3]))
         return result
@@ -55,10 +55,9 @@ def main() -> None:
     print_f_size = True
     status_codes = ('200', '301', '400', '401', '403', '404', '405', '500')
     result = {code: 0 for code in status_codes}
-    PATTERN = r'^(\d{1,4}\.){3}\d{1,4} - '\
-        r'\[\d{4}-\d{2}-\d{2} \d{1,2}:\d{1,2}:\d{1,2}(\.\d+)?\]'\
-        r' "GET \/projects\/260 HTTP\/1\.1" '\
-        r'(\w*) (\d+)$'
+    PATTERN = r'(\w*)\s*-\s*\[\d{4}-\d{2}-\d{2} '\
+        r'\d{1,2}:\d{1,2}:\d{1,2}(\.\d+)?\] "GET '\
+        r'\/projects\/260 HTTP\/1\.1" (\w*) (\d+)$'
     prog = re.compile(PATTERN)
     while True:
         for i in range(10):
