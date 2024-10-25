@@ -41,9 +41,9 @@ def display_result(
     """
     print('File size: {}'.format(file_size))
     for s_code in status_codes:
-        sum: int = result[s_code]
-        if sum > 0:
-            print('{}: {}'.format(s_code, sum))
+        total = result[s_code]
+        if total > 0:
+            print('{}: {}'.format(s_code, total))
     sys.stdout.flush()
 
 
