@@ -52,6 +52,7 @@ def main() -> None:
     Entry Point
     """
     total_file_size = 0
+    print_f_size = True
     status_codes = ('200', '301', '400', '401', '403', '404', '405', '500')
     result = {code: 0 for code in status_codes}
     PATTERN = r'^(\d{1,4}\.){3}\d{1,4} - '\
@@ -64,7 +65,7 @@ def main() -> None:
             try:
                 line = sys.stdin.readline().lstrip().rstrip()
                 if not line:
-                    if i > 0:
+                    if i > 0 or print_f_size:
                         display_result(total_file_size, result, status_codes)
                     return
                 status_code_file_size = get_file_size_status_code(line, prog)
@@ -76,6 +77,7 @@ def main() -> None:
                 display_result(total_file_size, result, status_codes)
                 return
         display_result(total_file_size, result, status_codes)
+        print_f_size = False
 
 
 if __name__ == '__main__':
