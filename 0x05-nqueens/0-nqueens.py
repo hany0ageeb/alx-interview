@@ -45,6 +45,7 @@ def solve_nqueens(N, row, board, solutions):
 
 
 def main():
+    """Entry pont"""
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
@@ -59,7 +60,9 @@ def main():
         print("N must be at least 4")
         sys.exit(1)
 
-    # Initialize board (use a list where the index is the row and value is the column of the queen)
+    # Initialize board
+    # (use a list where the index is
+    # the row and value is the column of the queen)
     board = [-1] * N  # Board of size N, all positions unfilled (-1)
     solutions = []
     solve_nqueens(N, 0, board, solutions)
